@@ -58,14 +58,23 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-console.log(process.env.JWT_SECRET);
-
 //? NOTE: Generate token
 userSchema.methods.generateAuthToken = async function () {
   let user = this;
-  const userObj = { sub: user._id.toHexString() };
+  const userObj = { sub: user._id.toHexString(), email: user.email };
   const token = jwt.sign(userObj, process.env.JWT_SECRET, {
     expiresIn: "1d",
+  });
+
+  return token;
+};
+
+userSchema.methods.generateRegisterToken = async function () {
+  let user = this;
+  const userObj = { sub: user._id.toHexString() };
+
+  const token = jwt.sign(userObj, process.env.JWT_SECRET, {
+    expiresIn: "5h",
   });
 
   return token;

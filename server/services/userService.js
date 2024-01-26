@@ -1,6 +1,11 @@
 const httpStatus = require("http-status");
 const { ApiError } = require("../middleware/ApiError");
 const User = require("../models/userModel");
+const jwt = require("jsonwebtoken");
+
+const validateToken = async (token) => {
+  return jwt.verify(token, process.env.JWT_SECRET);
+};
 
 //? : For filtering the field to update
 const { filteredObj } = require("./utils");
@@ -98,4 +103,5 @@ module.exports = {
   findUserById,
   updateUserProfile,
   updateUserEmail,
+  validateToken,
 };

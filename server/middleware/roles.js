@@ -10,12 +10,21 @@ const allRights = {
 };
 let grantsRoleObject = {
   admin: {
+    site: allRights,
     profile: allRights,
+    brand: allRights,
+    product: allRights,
   },
   user: {
     profile: {
       "read:own": ["*", "!password", "!_id"], // the password won't be sent back
       "update:own": ["*"],
+    },
+    brand: {
+      "read:any": ["*"],
+    },
+    product: {
+      "read:any": ["*"],
     },
   },
 };
